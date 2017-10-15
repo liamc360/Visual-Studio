@@ -6,5 +6,9 @@ namespace clGeneral.Utils
 {
     class SqlConnector
     {
+        private void test()
+        {
+            
+        }    
     }
 }
