@@ -30,6 +30,10 @@ app.get('/api/testget', function (req, res) {
     res.send('testget goes here');
 });
 
+app.get('/api/github', function (req, res) {
+    res.send('github test');
+});
+
 app.get('/sound', function (req, res) {
 
     var player = require('play-sound')({ player: "mpv" });
