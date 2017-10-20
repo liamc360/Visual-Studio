@@ -11,9 +11,9 @@ namespace SharedClasses.Utils
 {
     public class SqlConnect
     {
-        public static string GetConString(string name)
+        public static string GetConString()
         {
-            return ConfigurationManager.ConnectionStrings["SqlServer"].ConnectionString;
+            return ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         }
     }
     

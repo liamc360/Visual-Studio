@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Website.Models.Employee>
+
+@{
+    ViewBag.Title = "WebGrid";
+}
+<div><b>Table Format Data Displaying Using WebGrid</b><br /></div>
+@{ var grid = new WebGrid(Model, canPage: false);}
+<div>
+
+    @grid.GetHtml(tableStyle: "table table-bordered table-responsive table-hover",
+    columns: grid.Columns(
+         grid.Column("EmployeeId", "Employee Id"),
+         grid.Column("FirstName", "First Name"),
+         grid.Column("LastName", "Last Name"),
+         grid.Column("Email", "Email"),
+         grid.Column("Salary", "Salary"),
+         grid.Column("Company", "Company"),
+         grid.Column("Dept", "Department")
+    )
+    )
+</div>  

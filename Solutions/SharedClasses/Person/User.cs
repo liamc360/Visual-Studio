@@ -19,7 +19,7 @@ namespace SharedClasses.Person
         public int AddUser()
         {
             int rowsAdded = 0;
-            using (SqlConnection con = new System.Data.SqlClient.SqlConnection(SqlConnect.GetConString("General")))
+            using (SqlConnection con = new System.Data.SqlClient.SqlConnection(SqlConnect.GetConString()))
             {
                 SqlCommand comTask = new SqlCommand();
                 comTask.Connection = con;
