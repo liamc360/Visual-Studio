@@ -31,3 +31,14 @@ body {
 
     overflow-x: hidden;
 }
+
+div.dt-buttons {
+    float: left;
+    margin-left: 10px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+div.input {
+
+}

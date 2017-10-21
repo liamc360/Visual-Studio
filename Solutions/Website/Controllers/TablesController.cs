@@ -7,13 +7,14 @@ using Website.Models;
 
 namespace Website.Controllers
 {
+    [Authorize]
     public class TablesController : Controller
     {
         private List<SharedClasses.Person.Employee> emp;
 
-        public JsonResult EmployeeData(String id)
+        public JsonResult EmployeeData(String id, String gender)
         {
-            emp = SharedClasses.Person.Employee.GetEmployees(0, "", "", "", id, "");
+            emp = SharedClasses.Person.Employee.GetEmployees(0, "", "", "", gender, "");
             return Json(emp, JsonRequestBehavior.AllowGet);
         }
 
@@ -21,8 +22,15 @@ namespace Website.Controllers
         {
             return View();
         }
-
-        
+        public ActionResult ViewLyubomir()
+        {
+            return PartialView("ViewLyubomir");
+        }
+        [HttpPost]
+        public ActionResult Lyubomir()
+        {
+            return RedirectToAction("JsonView");
+        }
 
         // GET: Tables
         public ActionResult Tickets()
