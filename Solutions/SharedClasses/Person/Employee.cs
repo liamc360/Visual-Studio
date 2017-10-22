@@ -6,22 +6,37 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace SharedClasses.Person
 {
     public class Employee
     {
-        public int EmpNo { get; set; }
+        
+        [Key]
+        public virtual int? EmpNo { get; set; }
 
-        public string BirthDate { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Birth Date")]
+        public DateTime BirthDate { get; set; }
 
+        [Required]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
+        [Required]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [Required]
+        [Display(Name = "Gender")]
         public string Gender { get; set; }
 
-        public string HireDate { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Hire Date")]
+        public DateTime HireDate { get; set; }
 
         public Employee()
         {
@@ -84,8 +99,8 @@ namespace SharedClasses.Person
 
                             colIndex = reader.GetOrdinal("BirthDate");
                             DateTime x = reader.GetDateTime(colIndex);
-                            string y = x.ToString();
-                            e.BirthDate = y;
+                            string y = x.ToShortDateString().ToString();
+                            e.BirthDate = x;
 
                             colIndex = reader.GetOrdinal("FirstName");
                             e.FirstName = reader.GetString(colIndex);
@@ -98,8 +113,8 @@ namespace SharedClasses.Person
 
                             colIndex = reader.GetOrdinal("HireDate");
                             x = reader.GetDateTime(colIndex);
-                            y = x.ToString();
-                            e.HireDate = y;
+                            y = x.ToShortDateString().ToString();
+                            e.HireDate = x;
                             employees.Add(e);
                         }
                     }
@@ -110,6 +125,34 @@ namespace SharedClasses.Person
                 }
             }
             return employees;
+        }
+
+
+        public static int AddEmployee(Employee e)
+        {
+            using (SqlConnection con = new System.Data.SqlClient.SqlConnection(SqlConnect.GetConString()))
+            {
+                string sCommand = "INSERT INTO Website..Employees(BirthDate, FirstName, LastName, Gender, HireDate) VALUES(@birthdate, @firstname, @lastname, @gender, @hiredate)";
+
+                try
+                {
+                    SqlCommand cmd = new SqlCommand(sCommand, con);
+                    cmd.Parameters.Add("@birthdate", SqlDbType.Date).Value = e.BirthDate;
+                    cmd.Parameters.Add("@firstname", SqlDbType.VarChar).Value = e.FirstName;
+                    cmd.Parameters.Add("@lastname", SqlDbType.VarChar).Value = e.LastName;
+                    cmd.Parameters.Add("@gender", SqlDbType.VarChar).Value = e.Gender;
+                    cmd.Parameters.Add("@hiredate", SqlDbType.Date).Value = e.HireDate;
+
+                    con.Open();
+                    int result = cmd.ExecuteNonQuery();
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return 0;
         }
     }
 }

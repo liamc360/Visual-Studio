@@ -3,6 +3,7 @@
 }
 <!-- hidden link for search -->
 @Html.ActionLink("_SearchEmployees ", "SearchEmployees", "Tables", null, new { @class = "modal-link hidden", @id="searchBtn"})
+@Html.ActionLink("_AddEmployee ", "AddEmployee", "Tables", null, new { @class = "modal-link hidden", @id = "btnAddEmployee" })
 
 <div id="modal-container" class="modal fade modal-container-small-search"
      tabindex="-1" role="dialog">
@@ -39,7 +40,7 @@
     var table;
     $(document).ready(function () {
         $('#tblEmployee').dataTable().fnDestroy();
-        table = $("#tblEmployee").dataTable({
+        table = $("#tblEmployee").DataTable({
             dom: 'Blfrtip',
             "iDisplayLength": 20, //set to 20 results per page by default
             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], //results per page values
@@ -69,12 +70,28 @@
                         document.getElementById("searchBtn").click();
                     },
                     className: 'btn btn-primary'
+                },
+                {
+                    text: 'Add Record',
+                    action: function (e, dt, node, config) {
+                        document.getElementById("btnAddEmployee").click();
+                    },
+                    className: 'btn btn-success'
                 }
             ]
         }).container().appendTo($('#tableButtons'));
         
         $('.dataTables_filter input').attr('placeholder', 'Search Table');
         $('#tableButtons').append($('.dataTables_filter'));
+
+        table.row.add({
+            "EmpNo": "Tiger Nixon",
+            "BirthDate": "System Architect",
+            "FirstName": "$3,120",
+            "LastName": "2011/04/25",
+            "Gender": "Edinburgh",
+            "HireDate": "5421"
+        }).draw();
     });
 
     function GetEmployees(empNo = 0, birthDate= "", firstName = "", lastName = "", gender = "", hireDate = "") {
@@ -85,10 +102,11 @@
             dataType: "json",
             url: url,
             success: function (data) {
-                table.fnClearTable();
+                table.clear();
                 if (data.length > 0) {
-                    table.fnAddData(data);
+                    table.rows.add(data);
                 }
+                table.draw();
             },
             error: function (data) {
             }

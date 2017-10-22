@@ -1,0 +1,159 @@
+﻿@model SharedClasses.Person.Employee
+
+@{
+    ViewBag.Title = "Create";
+
+    AjaxOptions options = new AjaxOptions
+    {
+        OnBegin = "OnBeginMethod",
+        OnFailure = "OnFailtureMethod",
+        OnSuccess = "OnSuccessMethod",
+        OnComplete = "OnCompleteMethod"
+    };
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+@using (Ajax.BeginForm(options))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="modal-body">
+
+        <div class="form">
+            <label class="label-white h2">Add Employee</label>
+            <div class="form-group">
+                @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label label-white" })
+                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control radius-0" } })
+                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+                </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label label-white" })
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control radius-0" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </div>
+ 
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label label-white" })
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control radius-0" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label label-white" })
+                @Html.DropDownListFor(model => model.Gender, new SelectList(new string[] { "M", "F"}), new { @class = "form-control radius-0" })
+                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.HireDate, htmlAttributes: new { @class = "control-label label-white" })
+                @Html.EditorFor(model => model.HireDate, new { htmlAttributes = new { @class = "form-control radius-0" } })
+                @Html.ValidationMessageFor(model => model.HireDate, "", new { @class = "text-danger" })
+            </div>
+            <div class="space-20"></div>
+            <div class="form-group">
+                <button type="button" class="btn btn-default radius-0" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="submit" id="btnSearchDB" class="btn btn-primary radius-0">
+                    Add
+                </button>
+            </div>
+            <div class="form-group">
+                <label id="labelAjaxStatus" class="label-white"></label>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    var isError = false;
+    function OnBeginMethod() {
+        $("#labelAjaxStatus").text("Loading ....");
+    }
+
+    function OnFailtureMethod(error) {
+        $("#labelAjaxStatus").html(error.responseText);
+        isError = true;
+    }
+
+    function OnSuccessMethod(data) {
+        $("#labelAjaxStatus").text("Added new employee");
+        $("#FirstName").val('');
+        $("#LastName").val('');
+        $("#BirthDate").val('');
+        $("#HireDate").val('');
+    }
+
+    function OnCompleteMethod(data, status) {
+        if (!isError) {
+            $("#labelAjaxStatus").text("Added new employee");
+        }
+    }
+</script>
+
+
+
+@*
+
+    <div class="form-horizontal">
+        <h4>Employee</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmpNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmpNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EmpNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HireDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HireDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HireDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>*@
+}

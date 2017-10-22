@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Website.Models;
@@ -28,6 +29,54 @@ namespace Website.Controllers
             return PartialView("_SearchEmployees");
         }
 
+        public ActionResult AddEmployee()
+        {
+            return PartialView("_AddEmployee");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddEmployee(SharedClasses.Person.Employee employee)
+        {
+            if (!Request.IsAjaxRequest())
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                return Content("Sorry, this method can't be called only from AJAX.");
+            }
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    int result = SharedClasses.Person.Employee.AddEmployee(employee);
+                    if (result > 0)
+                    {
+                        return Content("Record added successfully !");
+                    }
+                    else
+                    {
+                        return Content("Failed to add record !");
+                    }
+                }
+                else
+                {
+                    StringBuilder strB = new StringBuilder(500);
+                    foreach (ModelState modelState in ModelState.Values)
+                    {
+                        foreach (ModelError error in modelState.Errors)
+                        {
+                            strB.Append(error.ErrorMessage + "<br/>");
+                        }
+                    }
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                    return Content(strB.ToString());
+                }
+            }
+            catch (Exception ee)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                return Content("Sorry, an error occured." + ee.Message);
+            }
+        }
 
         // GET: Tables
         public ActionResult Tickets()
