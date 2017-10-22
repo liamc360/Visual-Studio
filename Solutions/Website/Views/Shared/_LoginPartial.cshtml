@@ -5,18 +5,25 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav pull-right">
+         @*Html.ActionLink(User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
+
         <li>
-            @Html.ActionLink(User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            <a href="@Url.Action("Index", "Manage")" id="accountManageHyperLink" data-toggle="tooltip" data-placement="right" title="Account">
+                <i class="fa fa-user"></i>
+            </a>
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+
+        <a href="javascript:document.getElementById('logoutForm').submit()" data-toggle="tooltip" data-placement="right" title="Signout"><i class="fa fa-sign-out"></i></a>
     }
 }
 else
 {
-    <ul class="nav navbar-nav pull-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+    <li>
+        <a href="@Url.Action("Register", "Account", "Account")" id="registerHyperLink" data-toggle="tooltip" data-placement="right" title="Register">
+            <i class="fa fa-user-plus"></i>
+        </a>
+    </li>
+    <a href="@Url.Action("Login", "Account", "Account")" id="loginHyperLink" data-toggle="tooltip" data-placement="right" title="Login">
+        <i class="fa fa-user"></i>
+    </a>
 }

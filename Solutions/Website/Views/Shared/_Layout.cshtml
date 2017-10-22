@@ -5,11 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/fontawesome")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+
+    <!--<div id="nav" class="nav">
+        <div class="icon">
+            <ul>
+                <li><a title="Home" href="#"><i class="fa fa-home "></i></a></li>
+                <li><a href="About"><i class="fa fa-search "></i></a></li>
+                <li><a href="#"><i class="fa fa-table"></i></a></li>
+                <li><a href="#"><i class="fa fa-cog "></i></a></li>
+            </ul>
+        </div>
+    </div>-->
+
+    @using Microsoft.AspNet.Identity
+    @if (Request.IsAuthenticated)
+    {
+        <div id="tableSideNav" class="sidenav">
+            <label class="h2 label-white navExtraTitle">Tables</label>
+            <!--<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>-->
+            <a href="@Url.Action("Employees", "Tables")" id="employeesHyperLink">Employees</a>
+            <a href="#">Services</a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a>
+        </div>
+    }
+    <div id="nav" class="nav"> 
+        <div class="icon">
+            <ul>
+                <li>
+                    <a href="@Url.Action("Index", "Home", new { area = "" })" id="homeHyperlink">
+                        <i class="fa fa-home"></i>
+                    </a>
+                </li>
+
+                @using Microsoft.AspNet.Identity
+                @if (Request.IsAuthenticated)
+                {
+                    <li>
+                        <a href="javascript:openTablesNav()" id="tableHyperlink"><i class="fa fa-table"></i></a>
+                        @*<a href="@Url.Action("Employees", "Tables")" id="tableHyperlink" data-toggle="tooltip" data-placement="right" title="Employees">
+                            <i class="fa fa-table"></i>
+                        </a>*@
+                    </li>
+
+                }
+            </ul>
+
+            <ul class="nav-bottom">
+                 @Html.Partial("_LoginPartial")
+                <!--<li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i></a></li>-->
+            </ul>
+            @*Html.Partial("_LoginPartial")*@
+        </div>
+    </div>
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
@@ -29,16 +83,38 @@
         }
         @Html.Partial("_LoginPartial")
         </div>
-    </div>
-    <div class="space-20">
+    </div>*@
+    <div class="default-page-style">
         @RenderBody()
-        <hr />
+        @*<hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+            <p class="space-left-10">&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>*@
     </div>
 
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/datatables")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">$("[data-toggle=tooltip").tooltip();</script>
+    <script>
+        var open = false;
+        var extraNavWidth = "200px";
+        /* Set the width of the side navigation to 250px */
+        function openTablesNav() {
+            
+            if (open) {
+                document.getElementById("tableSideNav").style.width = "0";
+            }
+            else {
+                document.getElementById("tableSideNav").style.width = extraNavWidth;
+            } 
+            open = !open;
+        }
+
+        /* Set the width of the side navigation to 0 
+        function closeNav() {
+            document.getElementById("tableSideNav").style.width = "0";
+        }*/
+    </script>
 </body>
 </html>

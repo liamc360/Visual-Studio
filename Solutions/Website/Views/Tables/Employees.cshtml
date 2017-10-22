@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "Employees";
+}
+<!-- hidden link for search -->
+@Html.ActionLink("_SearchEmployees ", "SearchEmployees", "Tables", null, new { @class = "modal-link hidden", @id="searchBtn"})
+
+<div id="modal-container" class="modal fade modal-container-small-search"
+     tabindex="-1" role="dialog">
+    <div class="modal-content modal-content-small-search">
+    </div>
+</div>
+
+<!-- Table and controls -->
+<div id="tableControls">
+    <div id="tableButtons"></div>
+</div>
+<div id="divTable">
+    <table class="table table-bordered table-striped table-responsive table-hover" id="tblEmployee">
+        <thead>
+            <tr>
+                <th>Employee Id </th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>Birth Date</th>
+                <th>Hire Date</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+<script type="text/javascript">
+    document.getElementById("tableHyperlink").style = "color: white;";
+    document.getElementById("employeesHyperLink").style = "color: white;";
+</script>
+<!-- Datatable -->
+<script type="text/javascript">
+    var table;
+    $(document).ready(function () {
+        $('#tblEmployee').dataTable().fnDestroy();
+        table = $("#tblEmployee").dataTable({
+            dom: 'Blfrtip',
+            "iDisplayLength": 20, //set to 20 results per page by default
+            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], //results per page values
+            "columns": [
+                { "data": "EmpNo" },
+                { "data": "FirstName" },
+                { "data": "LastName" },
+                { "data": "Gender" },
+                { "data": "BirthDate" },
+                { "data": "HireDate" }
+            ],
+            buttons: [],
+            "oLanguage": { "sSearch": "", "sLengthMenu": "_MENU_" },
+            paging: true,
+
+            //scrollY: '80vh',
+        });
+
+        var buttons = new $.fn.dataTable.Buttons(table, {
+            buttons: [
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5',
+                'colvis', {
+                    text: 'Search Database',
+                    action: function (e, dt, node, config) {
+                        document.getElementById("searchBtn").click();
+                    },
+                    className: 'btn btn-primary'
+                }
+            ]
+        }).container().appendTo($('#tableButtons'));
+        
+        $('.dataTables_filter input').attr('placeholder', 'Search Table');
+        $('#tableButtons').append($('.dataTables_filter'));
+    });
+
+    function GetEmployees(empNo = 0, birthDate= "", firstName = "", lastName = "", gender = "", hireDate = "") {
+
+        var url = "/Tables/EmployeeData/?empNo=" + empNo + "&birthDate=" + birthDate + "&firstName=" + firstName + "&lastName=" + lastName + "&gender=" + gender + "&hireDate=" + hireDate;
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: url,
+            success: function (data) {
+                table.fnClearTable();
+                if (data.length > 0) {
+                    table.fnAddData(data);
+                }
+            },
+            error: function (data) {
+            }
+        });
+    };
+</script>

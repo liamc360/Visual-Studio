@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    /*padding-top: 50px;*/
     padding-bottom: 20px;
 }
 
@@ -27,6 +27,17 @@ textarea {
     margin-top: 20px;
 }
 
+.space-left-10 {
+    margin-left: 10px;
+}
+
+.default-page-style {
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 82px;
+}
+
 body {
 
     overflow-x: hidden;
@@ -34,11 +45,194 @@ body {
 
 div.dt-buttons {
     float: left;
-    margin-left: 10px;
-    margin-right: 20px;
+    margin-right: 50px;
     margin-bottom: 10px;
 }
 
-div.input {
+.left-62 {
+    margin-left: 62px;
+}
 
+.nav-bottom{
+    position:fixed;
+    bottom:0;
+}
+
+.modal-content-small-search {
+    width: 300px !important;
+    margin: 50px auto !important;
+}
+
+.modal-container-small-search {
+    width: 300px !important;
+    margin: 50px auto !important;
+}
+
+.dataTables_length {
+    display:none;
+}
+
+input[type="search"]{
+    height: 35px;
+}
+
+#tableSearch {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+#tableSearch input{
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+#tableLength {
+    text-align: right;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Raleway:500);
+
+.modal-content {
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+    background: #262626;
+}
+
+.radius-0 {
+    border-radius: 0px;
+}
+
+.label-white{
+    color: white;
+}
+
+.nav {
+    height: 100%;
+    position: fixed;
+    left: -3em;
+    top: 0;
+    z-index: 1000;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+}
+
+.icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 990;
+    height: 100%;
+    background: #262626;
+}
+
+.icon li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    list-style-type: none;
+}
+
+.icon a {
+    display: block;
+    width: 64px;
+    height: 64px;
+    line-height: 64px;
+    text-align: center;
+    font-size: 1.8em;
+    color: #999999;
+    text-shadow: 0 1px 0 black;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+.icon a:hover {
+    color: white;
+    -webkit-transform: translateX(0px) scale(1.2);
+    transform: translateX(0px) scale(1.2);
+}
+
+.text li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.text a {
+    display: block;
+    width: 200px;
+    height: 64px;
+    line-height: 64px;
+    text-indent: 1em;
+    font-size: 1.4em;
+    text-decoration: none;
+    color: #999999;
+    text-shadow: 0 1px 0 black;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.hidden {
+    display: none;
+}
+
+
+
+.navExtraTitle{
+    margin-left:20px;
+}
+/* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #262626; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 0px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    margin-left: 62px;
+    border-left: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+    /* The navigation menu links */
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #999999;
+        display: block;
+        transition: 0.3s;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    }
+
+        /* When you mouse over the navigation links, change their color */
+        .sidenav a:hover, .offcanvas a:focus {
+            color: #f1f1f1;
+        }
+
+    /* Position and style the close button (top right corner) */
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+        .sidenav a {
+            font-size: 18px;
+        }
 }

@@ -33,35 +33,44 @@ namespace SharedClasses.Person
             List<Employee> employees = new List<Employee> { };
             using (SqlConnection con = new System.Data.SqlClient.SqlConnection(SqlConnect.GetConString()))
             {
-                string sCommand = string.Empty;
-                string sAnd = "";
+                string sCommand = "SELECT Top 2000 * FROM Website..Employees WHERE 1=1";
 
-                sCommand += "SELECT * FROM Website..Employees WHERE ";
-
-
-                if(empNo != 0)
+                if (empNo != 0)
                 {
-                    sCommand += " EmpNo = " + empNo;
-                    sAnd = " AND ";
-                }
-                if (firstName != "")
+                    sCommand += " AND EmpNo = @empno";
+                } 
+                if (firstName != string.Empty)
                 {
-                    sCommand += " FirstName = " + firstName;
-                    sAnd = " AND ";
+                    sCommand += " AND FirstName LIKE @firstname";
+                }
+                if (lastName != string.Empty)
+                {
+                    sCommand += " AND LastName LIKE @lastname";
+                }
+                if (gender != string.Empty)
+                {
+                    sCommand += " AND Gender = @gender";
                 }
 
-                if (gender != "")
+                /*if (hireDate != string.Empty)
                 {
-                    sCommand += " Gender = '" + gender + "'";
-                    sAnd = " AND ";
+                    sCommand += " AND EmpNo = @empno";
                 }
+                if (birthDate != string.Empty)
+                {
+                    sCommand += " AND EmpNo = @empno";
+                }*/
 
                 try
                 {
-                    SqlCommand command = new SqlCommand(sCommand, con);
+                    SqlCommand cmd = new SqlCommand(sCommand, con);
+                    cmd.Parameters.Add("@empno", SqlDbType.Int).Value = empNo;
+                    cmd.Parameters.Add("@firstname", SqlDbType.VarChar).Value = firstName + "%";
+                    cmd.Parameters.Add("@lastname", SqlDbType.VarChar).Value = lastName + "%";
+                    cmd.Parameters.Add("@gender", SqlDbType.VarChar).Value = gender;
 
                     con.Open();
-                    SqlDataReader reader = command.ExecuteReader();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
                     if(reader.HasRows)
                     {

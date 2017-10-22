@@ -10,27 +10,24 @@ namespace Website.Controllers
     [Authorize]
     public class TablesController : Controller
     {
+        /* EMPLOYEES WITH JSON */
         private List<SharedClasses.Person.Employee> emp;
 
-        public JsonResult EmployeeData(String id, String gender)
+        public JsonResult EmployeeData(int empNo, String birthDate, String firstName, String lastName, String gender, String hireDate)
         {
-            emp = SharedClasses.Person.Employee.GetEmployees(0, "", "", "", gender, "");
+            emp = SharedClasses.Person.Employee.GetEmployees(empNo, birthDate, firstName, lastName, gender, hireDate);
             return Json(emp, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult JsonView()
+        public ActionResult Employees()
         {
             return View();
         }
-        public ActionResult ViewLyubomir()
+        public ActionResult SearchEmployees()
         {
-            return PartialView("ViewLyubomir");
+            return PartialView("_SearchEmployees");
         }
-        [HttpPost]
-        public ActionResult Lyubomir()
-        {
-            return RedirectToAction("JsonView");
-        }
+
 
         // GET: Tables
         public ActionResult Tickets()
