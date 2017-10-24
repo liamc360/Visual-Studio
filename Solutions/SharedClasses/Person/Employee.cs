@@ -14,10 +14,11 @@ namespace SharedClasses.Person
     {
         
         [Key]
-        public virtual int? EmpNo { get; set; }
+        public int EmpNo { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Birth Date")]
         public DateTime BirthDate { get; set; }
 
@@ -35,6 +36,7 @@ namespace SharedClasses.Person
 
         [Required]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Hire Date")]
         public DateTime HireDate { get; set; }
 
@@ -67,15 +69,6 @@ namespace SharedClasses.Person
                     sCommand += " AND Gender = @gender";
                 }
 
-                /*if (hireDate != string.Empty)
-                {
-                    sCommand += " AND EmpNo = @empno";
-                }
-                if (birthDate != string.Empty)
-                {
-                    sCommand += " AND EmpNo = @empno";
-                }*/
-
                 try
                 {
                     SqlCommand cmd = new SqlCommand(sCommand, con);
@@ -98,9 +91,7 @@ namespace SharedClasses.Person
                             e.EmpNo = reader.GetInt32(colIndex);
 
                             colIndex = reader.GetOrdinal("BirthDate");
-                            DateTime x = reader.GetDateTime(colIndex);
-                            string y = x.ToShortDateString().ToString();
-                            e.BirthDate = x;
+                            e.BirthDate = reader.GetDateTime(colIndex);
 
                             colIndex = reader.GetOrdinal("FirstName");
                             e.FirstName = reader.GetString(colIndex);
@@ -112,9 +103,7 @@ namespace SharedClasses.Person
                             e.Gender = reader.GetString(colIndex);
 
                             colIndex = reader.GetOrdinal("HireDate");
-                            x = reader.GetDateTime(colIndex);
-                            y = x.ToShortDateString().ToString();
-                            e.HireDate = x;
+                            e.HireDate = reader.GetDateTime(colIndex);
                             employees.Add(e);
                         }
                     }
@@ -128,6 +117,14 @@ namespace SharedClasses.Person
         }
 
 
+        /*if (hireDate != string.Empty)
+        {
+            sCommand += " AND EmpNo = @empno";
+        }
+        if (birthDate != string.Empty)
+        {
+            sCommand += " AND EmpNo = @empno";
+        }*/
         public static int AddEmployee(Employee e)
         {
             using (SqlConnection con = new System.Data.SqlClient.SqlConnection(SqlConnect.GetConString()))
@@ -142,6 +139,34 @@ namespace SharedClasses.Person
                     cmd.Parameters.Add("@lastname", SqlDbType.VarChar).Value = e.LastName;
                     cmd.Parameters.Add("@gender", SqlDbType.VarChar).Value = e.Gender;
                     cmd.Parameters.Add("@hiredate", SqlDbType.Date).Value = e.HireDate;
+
+                    con.Open();
+                    int result = cmd.ExecuteNonQuery();
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return 0;
+        }
+
+        public static int UpdateEmployee(Employee e)
+        {
+            using (SqlConnection con = new System.Data.SqlClient.SqlConnection(SqlConnect.GetConString()))
+            {
+                string sCommand = "UPDATE Website..Employees SET BirthDate = @birthdate, FirstName = @firstname, LastName = @lastname, Gender = @gender, HireDate = @hiredate WHERE EmpNo = @empno";
+
+                try
+                {
+                    SqlCommand cmd = new SqlCommand(sCommand, con);
+                    cmd.Parameters.Add("@birthdate", SqlDbType.Date).Value = e.BirthDate;
+                    cmd.Parameters.Add("@firstname", SqlDbType.VarChar).Value = e.FirstName;
+                    cmd.Parameters.Add("@lastname", SqlDbType.VarChar).Value = e.LastName;
+                    cmd.Parameters.Add("@gender", SqlDbType.VarChar).Value = e.Gender;
+                    cmd.Parameters.Add("@hiredate", SqlDbType.Date).Value = e.HireDate;
+                    cmd.Parameters.Add("@empno", SqlDbType.Int).Value = e.EmpNo;
 
                     con.Open();
                     int result = cmd.ExecuteNonQuery();

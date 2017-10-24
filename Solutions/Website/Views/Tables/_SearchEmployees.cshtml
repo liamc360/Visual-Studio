@@ -1,4 +1,4 @@
-﻿<div class="modal-body">
+﻿<div class="modal-body modal-input-style">
     <div class="form">
         <label class="label-white h2">Search Employees</label>
         <div class="form-group">
@@ -72,5 +72,25 @@
             $('#modal-container').modal('hide');
             GetEmployees(0, "", document.getElementById("txtFirstName").value, document.getElementById("txtLastName").value, $("#ddlGender").val(), "");
         });
+
+        var wage = document.getElementById("btnSearchDB");
+        wage.addEventListener("keydown", function (e) {
+            alert("hello");
+            if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+                alert("hello");
+                $('#modal-container').modal('hide');
+                GetEmployees(0, "", document.getElementById("txtFirstName").value, document.getElementById("txtLastName").value, $("#ddlGender").val(), "");
+            }
+        });
+        /* check enter key pressed
+        $(document).keypress(function (e) {
+            if (e.which == 13) {
+                if ($('#modal-container').hasClass('in'))
+                {
+                    alert('enter key is pressed');
+                }
+               
+            }
+        });*/
     });
 </script>

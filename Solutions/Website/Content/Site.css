@@ -111,6 +111,16 @@ input[type="search"]{
     color: white;
 }
 
+
+.modal-input-style label {
+    color: white !important;
+}
+.modal-input-style input {
+    width: 100% !important;
+    border-radius: 0px;
+}
+
+
 .nav {
     height: 100%;
     position: fixed;

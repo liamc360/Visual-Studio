@@ -3,11 +3,14 @@
 }
 <!-- hidden link for search -->
 @Html.ActionLink("_SearchEmployees ", "SearchEmployees", "Tables", null, new { @class = "modal-link hidden", @id="searchBtn"})
+@Html.ActionLink("_AddEmployee ", "AddEmployee", "Tables", null, new { @class = "modal-link hidden", @id = "btnAddEmployee"})
 @Html.ActionLink("_AddEmployee ", "AddEmployee", "Tables", null, new { @class = "modal-link hidden", @id = "btnAddEmployee" })
+@Html.ActionLink("_EditEmployee ", "EditEmployee", "Tables", new { id = "10002" }, new { @class = "modal-link hidden", @id = "btnEditEmployee" })
 
+<a href="" id="testa"></a>
 <div id="modal-container" class="modal fade modal-container-small-search"
      tabindex="-1" role="dialog">
-    <div class="modal-content modal-content-small-search">
+    <div class="modal-content modal-content-small-search" id="modal-content" >
     </div>
 </div>
 
@@ -25,6 +28,7 @@
                 <th>Gender</th>
                 <th>Birth Date</th>
                 <th>Hire Date</th>
+                <th>Edit</th>
             </tr>
         </thead>
     </table>
@@ -38,6 +42,8 @@
 <!-- Datatable -->
 <script type="text/javascript">
     var table;
+    var editingRow;
+    var theId;
     $(document).ready(function () {
         $('#tblEmployee').dataTable().fnDestroy();
         table = $("#tblEmployee").DataTable({
@@ -49,14 +55,29 @@
                 { "data": "FirstName" },
                 { "data": "LastName" },
                 { "data": "Gender" },
-                { "data": "BirthDate" },
-                { "data": "HireDate" }
+                {
+                    mRender: function (nTd, sData, oData, iRow, iCol) {
+                        var date = new Date(parseInt(oData.BirthDate.substr(6)));
+                        return date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear();
+                    }
+
+                },
+                {
+                    mRender: function (nTd, sData, oData, iRow, iCol) {
+                        var date = new Date(parseInt(oData.HireDate.substr(6)));
+                        return date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear();
+                    }
+
+                },
+                {
+                    mRender: function (o) {
+                        return '<a><i class="fa fa-edit" style="color:red" ></i></a> <a><i class="fa fa-times" style="color:red" ></i></a>';
+                    }
+                }
             ],
             buttons: [],
             "oLanguage": { "sSearch": "", "sLengthMenu": "_MENU_" },
-            paging: true,
-
-            //scrollY: '80vh',
+            paging: true
         });
 
         var buttons = new $.fn.dataTable.Buttons(table, {
@@ -80,18 +101,54 @@
                 }
             ]
         }).container().appendTo($('#tableButtons'));
-        
+
         $('.dataTables_filter input').attr('placeholder', 'Search Table');
         $('#tableButtons').append($('.dataTables_filter'));
 
-        table.row.add({
+
+        $('#tblEmployee tbody').on('click', '.fa-edit', function (e) {
+
+            editingRow = table.row($(this).parents('tr'))
+            //get selected row data
+            var data = table.row($(this).parents('tr')).data();
+            var theId = data.EmpNo;
+            var url = '@Url.Action("EditEmployee", "Tables", new { id = "idhere" })';
+            url = url.replace("idhere", theId);
+            $('#modal-container').modal('toggle');
+            $('#modal-content').load(url);
+
+            //var keyWord = $('#Keyword').val();
+            //$('#searchResults').load(url, { searchText: keyWord });
+
+
+
+        });
+
+        $('#tblEmployee tbody').on('click', '.fa-times', function (e) {
+
+            var data = table.row($(this).parents('tr')).data();
+            editingRow = table.row($(this).parents('tr'));
+            editid = data.EmpNo;
+            //data.row.data("hello");
+            //table.draw();
+            //table.row($(this).parents('tr')).data(Supplierdetails).draw();
+            //table.row(0).data(Supplierdetails).draw();
+            //table.row($(this).parents('tr')).data(Supplierdetails).draw();
+
+            //var keyWord = $('#Keyword').val();
+            //$('#searchResults').load(url, { searchText: keyWord });
+
+
+
+        });
+        /*table.row.add({
             "EmpNo": "Tiger Nixon",
             "BirthDate": "System Architect",
             "FirstName": "$3,120",
             "LastName": "2011/04/25",
             "Gender": "Edinburgh",
             "HireDate": "5421"
-        }).draw();
+        }).draw();*/
     });
 
     function GetEmployees(empNo = 0, birthDate= "", firstName = "", lastName = "", gender = "", hireDate = "") {
@@ -112,4 +169,5 @@
             }
         });
     };
+
 </script>
