@@ -179,5 +179,26 @@ namespace SharedClasses.Person
             }
             return 0;
         }
+
+        public static int DeleteEmployee(Employee e)
+        {
+            using (SqlConnection con = new System.Data.SqlClient.SqlConnection(SqlConnect.GetConString()))
+            {
+                string sCommand = "DELETE FROM Website..Employees WHERE EmpNo = @empno";
+
+                try
+                {
+                    SqlCommand cmd = new SqlCommand(sCommand, con);
+                    cmd.Parameters.Add("@empno", SqlDbType.Int).Value = e.EmpNo;
+                    con.Open();
+                    return cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return 0;
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Website.Models
@@ -79,6 +79,9 @@ namespace Website.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public string City { get; set; }
+
     }
 
     public class ResetPasswordViewModel

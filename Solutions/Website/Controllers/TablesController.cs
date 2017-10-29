@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -20,6 +22,16 @@ namespace Website.Controllers
             emp = SharedClasses.Person.Employee.GetEmployees(empNo, birthDate, firstName, lastName, gender, hireDate);
             return Json(emp, JsonRequestBehavior.AllowGet);
         }
+
+
+        public enum HttpStatusCode
+        {
+            Moved = 301,
+            Redirect = 302,
+            OK = 400,
+            NotFound = 404
+        }
+
 
         public ActionResult Employees()
         {
