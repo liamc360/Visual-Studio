@@ -19,6 +19,7 @@ namespace Website.Controllers
 
         public JsonResult EmployeeData(int empNo, String birthDate, String firstName, String lastName, String gender, String hireDate)
         {
+            string City = User.Identity.GetUserCity();
             emp = SharedClasses.Person.Employee.GetEmployees(empNo, birthDate, firstName, lastName, gender, hireDate);
             return Json(emp, JsonRequestBehavior.AllowGet);
         }

@@ -3,6 +3,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Security.Principal;
+using System;
 
 namespace Website.Models
 {
@@ -14,6 +16,7 @@ namespace Website.Models
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
+            userIdentity.AddClaim(new Claim("City", City));
             return userIdentity;
         }
 
@@ -30,6 +33,23 @@ namespace Website.Models
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+    }
+    public static class IdentityExtensions
+    {
+        public static string GetUserCity(this IIdentity identity)
+        {
+            if (identity == null)
+            {
+                throw new ArgumentNullException("identity");
+            }
+            var ci = identity as ClaimsIdentity;
+            if (ci != null)
+            {
+                string x = ci.FindFirstValue("City").ToString();
+                return ci.FindFirstValue("City");
+            }
+            return null;
         }
     }
 }
