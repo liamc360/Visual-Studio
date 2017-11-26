@@ -183,6 +183,8 @@ namespace ScreenshotSaver
             { 
                 bitmap.Save(userSettings["ScreenshotFolder"] + date + ".png", ImageFormat.Png);
             }
+            bitmap.Dispose();
+            graphics.Dispose();
         }
 
         private string GetSafeFilename(string filename)
