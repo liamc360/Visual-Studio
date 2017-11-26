@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedClasses", "SharedClasses\SharedClasses.csproj", "{6B4471AB-44F2-4BD1-AB6F-FBD729F44382}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassGen", "ClassGen\ClassGen.csproj", "{BB65EBD8-D4D5-4F8B-BBC7-D293E2DA22FF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsiteADO", "WebsiteADO\WebsiteADO.csproj", "{E43CAD29-9437-4249-9F2B-7F6619432FB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenshotSaver", "ScreenshotSaver\ScreenshotSaver.csproj", "{1507CCDA-B64A-4441-8002-12A275C8E77B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,22 @@ Global
 		{E43CAD29-9437-4249-9F2B-7F6619432FB7}.Release|x64.Build.0 = Release|Any CPU
 		{E43CAD29-9437-4249-9F2B-7F6619432FB7}.Release|x86.ActiveCfg = Release|Any CPU
 		{E43CAD29-9437-4249-9F2B-7F6619432FB7}.Release|x86.Build.0 = Release|Any CPU
+		{1507CCDA-B64A-4441-8002-12A275C8E77B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1507CCDA-B64A-4441-8002-12A275C8E77B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1507CCDA-B64A-4441-8002-12A275C8E77B}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{1507CCDA-B64A-4441-8002-12A275C8E77B}.Debug|ARM.Build.0 = Debug|Any CPU
+		{1507CCDA-B64A-4441-8002-12A275C8E77B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1507CCDA-B64A-4441-8002-12A275C8E77B}.Debug|x64.Build.0 = Debug|Any CPU
+		{1507CCDA-B64A-4441-8002-12A275C8E77B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1507CCDA-B64A-4441-8002-12A275C8E77B}.Debug|x86.Build.0 = Debug|Any CPU
+		{1507CCDA-B64A-4441-8002-12A275C8E77B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1507CCDA-B64A-4441-8002-12A275C8E77B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1507CCDA-B64A-4441-8002-12A275C8E77B}.Release|ARM.ActiveCfg = Release|Any CPU
+		{1507CCDA-B64A-4441-8002-12A275C8E77B}.Release|ARM.Build.0 = Release|Any CPU
+		{1507CCDA-B64A-4441-8002-12A275C8E77B}.Release|x64.ActiveCfg = Release|Any CPU
+		{1507CCDA-B64A-4441-8002-12A275C8E77B}.Release|x64.Build.0 = Release|Any CPU
+		{1507CCDA-B64A-4441-8002-12A275C8E77B}.Release|x86.ActiveCfg = Release|Any CPU
+		{1507CCDA-B64A-4441-8002-12A275C8E77B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,22 @@
+﻿<Window x:Name="Screenshot_Saver" x:Class="ScreenshotSaver.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ScreenshotSaver"
+        mc:Ignorable="d"
+        Title="Screenshot Saver" Height="184.261" Width="534.294" ResizeMode="CanMinimize" WindowState="Minimized">
+    <Grid Margin="0,0,0,32">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="16*"/>
+            <ColumnDefinition Width="49*" MinWidth="427" MaxWidth="427"/>
+            <ColumnDefinition Width="378*"/>
+            <ColumnDefinition Width="73*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="btnBrowse" Content="Browse" Grid.Column="1" HorizontalAlignment="Left" Margin="418,43,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="btnBrowse_Click" RenderTransformOrigin="0.857,1.913" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txtFolderPath" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="30" Margin="11,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="407" FontSize="16" MaxLines="1"/>
+        <CheckBox x:Name="chkSeperateFolders" Content="Use seperate folders for screenshots" HorizontalAlignment="Left" Margin="11,91,0,0" VerticalAlignment="Top" FontSize="16" Grid.ColumnSpan="3" Width="279" Height="27" Checked="chkSeperateFolders_Checked" Unchecked="chkSeperateFolders_Checked"/>
+        <Label Content="Screenshot Location" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" FontSize="16"/>
+
+    </Grid>
+</Window>
